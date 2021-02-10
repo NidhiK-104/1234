@@ -21,8 +21,10 @@ void str_cli(FILE *fp, int sockfd)
 	break;
 	}
 		send(sockfd, buffer, sizeof(buffer), 0);  
-		if (recv(sockfd, buffer, bufsize, 0) > 0) 
-	    		fputs(buffer, stdout);
+		int n=recv(sockfd, buffer, bufsize, 0);
+			printf("n=%d\n",n); 
+	    		//fputs(buffer, stdout)
+			printf("\n%s\n",buffer);
 	}
 	
 	printf("\nEOF\n");
@@ -40,7 +42,7 @@ int main(int argc,char *argv[])
 		printf("The socket was created\n");
 		
 	address.sin_family = AF_INET;
-	address.sin_port = htons(15432);			
+	address.sin_port = htons(16001);			
 	inet_pton(AF_INET, argv[1], &address.sin_addr);	
 	
 	if (connect(create_socket, (struct sockaddr *)&address, sizeof(address)) == 0)
